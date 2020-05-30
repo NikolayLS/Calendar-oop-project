@@ -62,7 +62,24 @@ Hour::Hour(int a = 0, int b = 0)
 }
 std::ostream& operator<<(std::ostream& os, const  Hour& othHour)
 {
-	os << "(" << othHour.hours << ":" << othHour.minutes << ")";
+	os << "(";
+	if (othHour.hours > 9)
+	{
+		os << othHour.hours << " ";
+	}
+	else
+	{
+		os <<"0"<< othHour.hours << " ";
+	}
+	if (othHour.minutes > 9)
+	{
+		os << othHour.minutes << ")";
+	}
+	else
+	{
+		os << "0" << othHour.minutes << ")";
+	}
+
 	return os;
 }
 void Hour::setHours(int oth)

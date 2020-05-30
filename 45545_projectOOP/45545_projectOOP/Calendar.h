@@ -1,6 +1,6 @@
 #pragma once
 #include<iostream>
-#include<stack>
+#include<vector>
 #include"Activity.h"
 class Calendar
 {
@@ -28,7 +28,7 @@ public:
 	Hour busyOnDate(Date);
 	void busyDays(Date, Date);
 	void findSlot(Date, Hour);
-	std::stack<Activity> readFromFile(char* fileName);
+	std::vector<Activity> readFromFile(char* fileName);
 	void saveAs(char* fileName);
 };
 

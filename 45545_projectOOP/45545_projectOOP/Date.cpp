@@ -86,15 +86,32 @@ Date::Date(int a = 0, int b = 0, int c = 0)
 }
 std::ostream& operator<<(std::ostream& os, const Date& othDate)
 {
-	os << "(" << othDate.year<< "/" << othDate.month << "/" << othDate.day<<")";
+	os << "(" << othDate.year << " ";
+	if (othDate.month > 9)
+	{
+		os << othDate.month << " ";
+	}
+	else
+	{
+		os << "0" << othDate.month<<" ";
+	}
+	if (othDate.day > 9)
+	{
+		os << othDate.day << ")";
+	}
+	else
+	{
+		os << "0" << othDate.day << ")";
+	}
+
 	return os;
 }
 
-int Date::getYear()
+int Date::getYear() 
 {
 	return this->year;
 }
-int Date::getMonth()
+int Date::getMonth() 
 {
 	return this->month;
 }

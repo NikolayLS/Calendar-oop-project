@@ -6,15 +6,14 @@ bool dialog()
 	char fileName[50];
 	std::cin >> fileName;
 	Calendar cal;
-	std::stack<Activity> stackHelper;
+	std::vector<Activity> vectorHelper;
 	std::cout << "Your calendar was loaded , chose the oprion that you want!" << std::endl;
 
-	stackHelper = cal.readFromFile(fileName);
-	while (!stackHelper.empty())
+	vectorHelper = cal.readFromFile(fileName);
+	Activity helper;
+	for (int i = 0;i < vectorHelper.size();i++)
 	{
-		Activity helper;
-		helper = stackHelper.top();
-		stackHelper.pop();
+		helper = vectorHelper[i];
 		cal.addActivity(helper);
 	}
 	cal.showAll();
@@ -135,9 +134,9 @@ bool dialog()
 			std::cin >> C2_year >> C2_month >> C2_day;
 			std::cout << "input hour " << std::endl;
 			std::cin >> C2_hours >> C2_minutes;
-			Date C2_one(C2_year, C2_month, C2_day);
-			Hour C2_two(C2_hours, C2_minutes);
-			cal.findSlot(C2_one, C2_two);
+			Date C2_date(C2_year, C2_month, C2_day);
+			Hour C2_hour(C2_hours, C2_minutes);
+			cal.findSlot(C2_date, C2_hour);
 			std::cout << "The command was executed successfully!" << std::endl;
 			break;
 		}
@@ -154,9 +153,9 @@ bool dialog()
 			std::cin >> C3_year1 >> C3_month1 >> C3_day1;
 			std::cout << "input secound date " << std::endl;
 			std::cin >> C3_year2 >> C3_month2 >> C3_day2;
-			Date C3_one(C3_year1, C3_month1, C3_day1);
-			Date C3_two(C3_year2, C3_month2, C3_day2);
-			cal.busyDays(C3_one, C3_two);
+			Date C3_firstDate(C3_year1, C3_month1, C3_day1);
+			Date C3_secondDate(C3_year2, C3_month2, C3_day2);
+			cal.busyDays(C3_firstDate, C3_secondDate);
 			std::cout << "The command was executed successfully!" << std::endl;
 			break;
 		}
@@ -167,8 +166,8 @@ bool dialog()
 			int C4_month1;
 			int C4_day1;
 			std::cin >> C4_year1 >> C4_month1 >> C4_day1;
-			Date C4_one(C4_year1, C4_month1, C4_day1);
-			cal.holiday(C4_one);
+			Date C4_Date(C4_year1, C4_month1, C4_day1);
+			cal.holiday(C4_Date);
 			std::cout << "The command was executed successfully!" << std::endl;
 			break;
 		}
@@ -189,8 +188,8 @@ bool dialog()
 			int C6_month1;
 			int C6_day1;
 			std::cin >> C6_year1 >> C6_month1 >> C6_day1;
-			Date ag(C6_year1, C6_month1, C6_day1);
-			cal.agenda(ag);
+			Date agendaDate(C6_year1, C6_month1, C6_day1);
+			cal.agenda(agendaDate);
 			std::cout << "The command was executed successfully!" << std::endl;
 			break;
 		}
@@ -207,22 +206,22 @@ bool dialog()
 			int C8_month1;
 			int C8_day1;
 			std::cin >> C8_year1 >> C8_month1 >> C8_day1;
-			Date unDate(C8_year1, C8_month1, C8_day1);
+			Date unbookDate(C8_year1, C8_month1, C8_day1);
 
 			std::cout << "input start hour :" << std::endl;
-			int C8_sHour1;
-			int C8_sHour2;
-			std::cin >> C8_sHour1 >> C8_sHour2;
-			Hour C8_sH(C8_sHour1, C8_sHour2);
+			int C8_hours;
+			int C8_miutes;
+			std::cin >> C8_hours >> C8_miutes;
+			Hour C8_startHour(C8_hours, C8_miutes);
 
 
 			std::cout << "input end hour :" << std::endl;
-			int C8_eHour1;
-			int C8_eHour2;
-			std::cin >> C8_eHour1 >> C8_eHour2;
-			Hour C8_eH(C8_eHour1, C8_eHour2);
+			int C8_endHours;
+			int C8_endMinutes;
+			std::cin >> C8_endHours >> C8_endMinutes;
+			Hour C8_endHour(C8_endHours, C8_endMinutes);
 
-			cal.unbook(unDate, C8_sH, C8_eH);
+			cal.unbook(unbookDate, C8_startHour, C8_endHour);
 			std::cout << "The command was executed successfully!" << std::endl;
 			break;
 		}
@@ -237,25 +236,25 @@ bool dialog()
 			std::cin >> c9_note;
 
 			std::cout << "input date : " << std::endl;
-			int C9_year1;
-			int C9_month1;
-			int C9_day1;
-			std::cin >> C9_year1 >> C9_month1 >> C9_day1;
-			Date unDate(C9_year1, C9_month1, C9_day1);
+			int C9_year;
+			int C9_month;
+			int C9_day;
+			std::cin >> C9_year >> C9_month >> C9_day;
+			Date C9_date(C9_year, C9_month, C9_day);
 
 			std::cout << "input start hour :" << std::endl;
-			int C9_sHour1;
-			int C9_sHour2;
-			std::cin >> C9_sHour1 >> C9_sHour2;
-			Hour C9_sH(C9_sHour1, C9_sHour2);
+			int C9_sHours;
+			int C9_sMinutes;
+			std::cin >> C9_sHours >> C9_sMinutes;
+			Hour C9_sHour(C9_sHours, C9_sMinutes);
 
 			std::cout << "input start hour :" << std::endl;
-			int C9_eHour1;
-			int C9_eHour2;
-			std::cin >> C9_eHour1 >> C9_eHour2;
-			Hour C9_eH(C9_eHour1, C9_eHour2);
+			int C9_eHours;
+			int C9_eMinutes;
+			std::cin >> C9_eHours >> C9_eMinutes;
+			Hour C9_eHour(C9_eHours, C9_eMinutes);
 
-			Activity c9_activity(c9_name, c9_note, unDate, C9_sH, C9_eH);
+			Activity c9_activity(c9_name, c9_note, C9_date, C9_sHour, C9_eHour);
 			if (cal.canIBook(c9_activity) == 0)
 			{
 				std::cout << "You cant book this activity!" << std::endl;

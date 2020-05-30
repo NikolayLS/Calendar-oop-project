@@ -1,85 +1,84 @@
 #include "Calendar.h"
 #include "helpFunctions.h"
 #include <fstream>
-std::stack<Activity> Calendar::readFromFile(char* fileName)
+std::vector<Activity> Calendar::readFromFile(char* fileName)
 {
-
-	std::stack<Activity> stackHelper;
+	std::vector<Activity> vectorHelper;
 	char stringHelper[50];
 	char stringHelper2[50];
 
-	char yearHelper[50];int yH;
-	char mothHelper[50];int mH;
-	char dayHelper[50];int dH;
+	char yearHelper[50];int years;
+	char mothHelper[50];int months;
+	char dayHelper[50];int days;
 
-	char sHourHelper1[50];int sH1;
-	char sHourHelper2[50];int sH2;
+	char sHourHelper1[50];int sHours;
+	char sHourHelper2[50];int sMinutes;
 
-	char eHourHelper1[50];int eH1;
-	char eHourHelper2[50];int eH2;
+	char eHourHelper1[50];int eHours;
+	char eHourHelper2[50];int eMinutes;
 
 	Calendar tempCalendar;
-	int one;
+	int number;
 
 	std::ifstream oFileName;
 	if (oFileName) {
 		oFileName.open(fileName, std::ios::in | std::ios::binary); //check
-		oFileName.read((char*)&one, sizeof(one));
-		tempCalendar.size = one;
-		oFileName.read((char*)&one, sizeof(one));
-		tempCalendar.capacity = one;
+		oFileName.read((char*)&number, sizeof(number));
+		tempCalendar.size = number;
+		oFileName.read((char*)&number, sizeof(number));
+		tempCalendar.capacity = number;
 		for (int i = 0;i < tempCalendar.size;i++)
 		{
-			oFileName.read((char*)&one, sizeof(one));
-			oFileName.read((char*)&stringHelper, one);
-			stringHelper[one] = '\0';
+			oFileName.read((char*)&number, sizeof(number));
+			oFileName.read((char*)&stringHelper, number);
+			stringHelper[number] = '\0';
 
-			oFileName.read((char*)&one, sizeof(one));
-			oFileName.read((char*)&stringHelper2, one);
-			stringHelper2[one] = '\0';
+			oFileName.read((char*)&number, sizeof(number));
+			oFileName.read((char*)&stringHelper2, number);
+			stringHelper2[number] = '\0';
 
-			oFileName.read((char*)&one, sizeof(one));
-			oFileName.read((char*)&yearHelper, one);
-			yearHelper[one] = '\0';
-			yH = fromCharToInt(yearHelper);
+			oFileName.read((char*)&number, sizeof(number));
+			oFileName.read((char*)&yearHelper, number);
+			yearHelper[number] = '\0';
+			years = fromCharToInt(yearHelper);
 
-			oFileName.read((char*)&one, sizeof(one));
-			oFileName.read((char*)&mothHelper, one);
-			mothHelper[one] = '\0';
-			mH = fromCharToInt(mothHelper);
+			oFileName.read((char*)&number, sizeof(number));
+			oFileName.read((char*)&mothHelper, number);
+			mothHelper[number] = '\0';
+			months = fromCharToInt(mothHelper);
 
-			oFileName.read((char*)&one, sizeof(one));
-			oFileName.read((char*)&dayHelper, one);
-			dayHelper[one] = '\0';
-			dH = fromCharToInt(dayHelper);
+			oFileName.read((char*)&number, sizeof(number));
+			oFileName.read((char*)&dayHelper, number);
+			dayHelper[number] = '\0';
+			days = fromCharToInt(dayHelper);
 
-			oFileName.read((char*)&one, sizeof(one));
-			oFileName.read((char*)&sHourHelper1, one);
-			sHourHelper1[one] = '\0';
-			sH1 = fromCharToInt(sHourHelper1);
+			oFileName.read((char*)&number, sizeof(number));
+			oFileName.read((char*)&sHourHelper1, number);
+			sHourHelper1[number] = '\0';
+			sHours = fromCharToInt(sHourHelper1);
 
-			oFileName.read((char*)&one, sizeof(one));
-			oFileName.read((char*)&sHourHelper2, one);
-			sHourHelper2[one] = '\0';
-			sH2 = fromCharToInt(sHourHelper2);
+			oFileName.read((char*)&number, sizeof(number));
+			oFileName.read((char*)&sHourHelper2, number);
+			sHourHelper2[number] = '\0';
+			sMinutes = fromCharToInt(sHourHelper2);
 
-			oFileName.read((char*)&one, sizeof(one));
-			oFileName.read((char*)&eHourHelper1, one);
-			eHourHelper1[one] = '\0';
-			eH1 = fromCharToInt(eHourHelper1);
+			oFileName.read((char*)&number, sizeof(number));
+			oFileName.read((char*)&eHourHelper1, number);
+			eHourHelper1[number] = '\0';
+			eHours = fromCharToInt(eHourHelper1);
 
-			oFileName.read((char*)&one, sizeof(one));
-			oFileName.read((char*)&eHourHelper2, one);
-			eHourHelper2[one] = '\0';
-			eH2 = fromCharToInt(eHourHelper2);
-			Date h1(yH, mH, dH);
-			Hour sH(sH1, sH2);
-			Hour eH(eH1, eH2);
-			Activity aH(stringHelper, stringHelper2, h1, sH, eH);
-			stackHelper.push(aH);
+			oFileName.read((char*)&number, sizeof(number));
+			oFileName.read((char*)&eHourHelper2, number);
+			eHourHelper2[number] = '\0';
+			eMinutes = fromCharToInt(eHourHelper2);
+			Date date(years, months, days);
+			Hour startHour(sHours, sMinutes);
+			Hour endHour(eHours, eMinutes);
+			Activity tempActivity(stringHelper, stringHelper2, date, startHour, endHour);
+			vectorHelper.push_back(tempActivity);
 		}
 	}
-	return stackHelper;
+	return vectorHelper;
 }
 void Calendar::saveAs(char* fileName)
 {
@@ -134,7 +133,6 @@ void Calendar::saveAs(char* fileName)
 			oFileName.write((char*)&len, sizeof(int));
 			oFileName.write((char*)intHelper, len);
 
-
 			len = array[i].getEndTime().getHours();
 			intHelper = fromIntToChar(len);
 			len = strlen(intHelper);
@@ -146,8 +144,6 @@ void Calendar::saveAs(char* fileName)
 			len = strlen(intHelper);
 			oFileName.write((char*)&len, sizeof(int));
 			oFileName.write((char*)intHelper, len);
-
-
 		}
 	}
 }
@@ -167,7 +163,6 @@ void Calendar::findSlot(Date othDate, Hour othHour)
 
 	for (int i = 0;i < 1000;i++)
 	{
-		
 		if (canIBook(checkHelper) == 1)
 		{
 			std::cout << othDate <<std::endl<< startHourCheck << std::endl << endHourCheck << std::endl;
@@ -186,9 +181,7 @@ void Calendar::findSlot(Date othDate, Hour othHour)
 				return;
 			}
 		}
-
 	}
-
 }
 void Calendar::busyDays(Date from, Date to)
 {
@@ -296,7 +289,6 @@ void Calendar::change(Date othDate, Hour othHour, char* changeStr)
 		std::cin >> nextName;
 		temp.setName(nextName);
 		addActivity(temp);
-		
 	}
 	if (!strcmp(changeStr, "note"))
 	{
@@ -423,12 +415,10 @@ Calendar::~Calendar()
 {
 	delete[]array;
 }
-bool Calendar::addActivity(Activity oth)// pyrva funkcionalnost ot uslovieto
+bool Calendar::addActivity(Activity oth)
 {
-	// cikyl za proverka ( dali moje da se dobavi takova sybitie)
 	for (int i = 0;i < size;i++)
 	{
-
 		if (array[i].getDate() == oth.getDate() && array[i].getStartTime() == oth.getStartTime()) { return 0; }
 		if (array[i].getDate() == oth.getDate() && array[i].getEndTime() == oth.getEndTime()) { return 0; }
 		if (array[i].getDate() == oth.getDate() && array[i].getStartTime() < oth.getStartTime() && array[i].getEndTime() > oth.getStartTime()) { return 0; }
@@ -441,13 +431,13 @@ bool Calendar::addActivity(Activity oth)// pyrva funkcionalnost ot uslovieto
 	if (this->size == this->capacity) this->expand();
 	return 1;
 }
-void Calendar::unbook(Date one, Hour two, Hour three)
+void Calendar::unbook(Date othDate, Hour othStartHour, Hour othEndHour)
 {
 	int j = 0;
 	Activity* temp = new Activity[this->capacity];
 	for (int i = 0;i < size;i++)
 	{
-		if (array[i].getDate() == one && array[i].getStartTime() == two && array[i].getEndTime() == three)
+		if (array[i].getDate() == othDate && array[i].getStartTime() == othStartHour && array[i].getEndTime() == othEndHour)
 		{
 			continue;
 		}
@@ -469,32 +459,31 @@ void Calendar::unbook(Date one, Hour two, Hour three)
 void Calendar::findSlotWith(char* nameOfCalendar, Date fromDate, Hour hours)
 {
 	Calendar tempCalendar;
-	std::stack<Activity> tempCalendarHelper;
+	std::vector<Activity> tempCalendarHelper;
 
 	tempCalendarHelper = tempCalendar.readFromFile(nameOfCalendar);
-	while (!tempCalendarHelper.empty())
+
+	Activity helper;
+	for (int i = 0;i < tempCalendarHelper.size();i++)
 	{
-		Activity helper;
-		helper = tempCalendarHelper.top();
-		tempCalendarHelper.pop();
-		tempCalendar.addActivity(helper);
+		 helper= tempCalendarHelper[i];
+		 tempCalendar.addActivity(helper);
 	}
-	std::cout << "v vyvedeniqt kalendar : " << std::endl;
+	std::cout << "In inputed calendar: " << std::endl;
 	tempCalendar.findSlot(fromDate, hours);
-	std::cout << "v tekushtiq kalendar : " << std::endl;
+	std::cout << "In temporary calendar: " << std::endl;
 	findSlot(fromDate, hours);
 }
 void Calendar::merge(char* otherCalendar)
 {
 	Calendar tempCalendar;
-	std::stack<Activity> tempCalendarHelper;
+	std::vector<Activity> tempCalendarHelper;
 
 	tempCalendarHelper = tempCalendar.readFromFile(otherCalendar);
-	while (!tempCalendarHelper.empty())
+	Activity helper;
+	for (int i = 0;i < tempCalendarHelper.size();i++)
 	{
-		Activity helper;
-		helper = tempCalendarHelper.top();
-		tempCalendarHelper.pop();
+		helper = tempCalendarHelper[i];
 		tempCalendar.addActivity(helper);
 	}
 	for (int i = 0;i < tempCalendar.size;i++)
