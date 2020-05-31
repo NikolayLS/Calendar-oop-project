@@ -1,0 +1,10 @@
+﻿  Activity.cpp
+  Calendar.cpp
+C:\Users\Nikcho\source\repos\45545\45545_projectOOP\helpFunctions.h(40,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Nikcho\source\repos\45545\45545_projectOOP\Calendar.cpp(473,19): warning C4018: '<': signed/unsigned mismatch
+  Date.cpp
+  main.cpp
+C:\Users\Nikcho\source\repos\45545\45545_projectOOP\Calendar.cpp(490,19): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+C:\Users\Nikcho\source\repos\45545\45545_projectOOP\dialog.h(15,19): warning C4018: '<': signed/unsigned mismatch
+  45545_projectOOP.vcxproj -> C:\Users\Nikcho\source\repos\45545\Debug\45545_projectOOP.exe
