@@ -165,7 +165,7 @@ void Calendar::findSlot(Date othDate, Hour othHour)
 	{
 		if (canIBook(checkHelper) == 1)
 		{
-			std::cout << othDate <<std::endl<< startHourCheck << std::endl << endHourCheck << std::endl;
+			std::cout <<"date: "<< othDate <<std::endl<<"from: "<< startHourCheck << " to: " << endHourCheck << std::endl;
 			return;
 		}
 		else
@@ -260,12 +260,12 @@ bool Calendar::canIBook(Activity oth)
 }
 void Calendar::find(char* oth)
 {
-	std::cout << "tezi koito go sydyrjat v imeto sa:" << std::endl;
+	std::cout << "Activities with names that contains the keyword are:" << std::endl;
 	for (int i = 0;i < size;i++)
 	{
 		if (cmpFunction(array[i].getName(), oth) == 1) std::cout << array[i];
 	}
-	std::cout << "tezi koito go sydyrjat v belejkata sa:" << std::endl;
+	std::cout << "Activities with notes that contains the keyword are:" << std::endl;
 	for (int i = 0;i < size;i++)
 	{
 		if (cmpFunction(array[i].getNote(), oth) == 1) std::cout << array[i];

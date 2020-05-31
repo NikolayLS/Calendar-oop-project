@@ -22,7 +22,7 @@ bool dialog()
 	{
 
 		std::cout << "Enter 'help' if you want to see your options! " << std::endl;
-		std::cout << "Example for inputing  date: 2020 1 1" << std::endl;
+		std::cout << "Example for inputing  date: 2020 01 01" << std::endl;
 		std::cout << "Example for inputing  hour: 13 30" << std::endl;
 		char option[50];
 		int optionInt = 10;
@@ -228,27 +228,27 @@ bool dialog()
 
 		case 9:
 		{
-			std::cout << "input name : " << std::endl;
+			std::cout << "input name: " << std::endl;
 			char c9_name[50];
 			std::cin >> c9_name;
-			std::cout << "input note : " << std::endl;
+			std::cout << "input note: " << std::endl;
 			char c9_note[50];
 			std::cin >> c9_note;
 
-			std::cout << "input date : " << std::endl;
+			std::cout << "input date: " << std::endl;
 			int C9_year;
 			int C9_month;
 			int C9_day;
 			std::cin >> C9_year >> C9_month >> C9_day;
 			Date C9_date(C9_year, C9_month, C9_day);
 
-			std::cout << "input start hour :" << std::endl;
+			std::cout << "input start hour:" << std::endl;
 			int C9_sHours;
 			int C9_sMinutes;
 			std::cin >> C9_sHours >> C9_sMinutes;
 			Hour C9_sHour(C9_sHours, C9_sMinutes);
 
-			std::cout << "input start hour :" << std::endl;
+			std::cout << "input start hour:" << std::endl;
 			int C9_eHours;
 			int C9_eMinutes;
 			std::cin >> C9_eHours >> C9_eMinutes;
@@ -267,7 +267,6 @@ bool dialog()
 				break;
 			}
 		}
-
 		case 10:
 		{
 			std::cout << "comands are : ";
@@ -294,8 +293,6 @@ bool dialog()
 		}
 		}
 	}
-	
-
 }
 
 void realDialog()
